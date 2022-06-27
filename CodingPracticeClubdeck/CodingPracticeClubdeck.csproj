@@ -43,8 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.cs" />
     <Compile Include="PostCreation\Announcement.cs" />
-    <Compile Include="Feed\Content.cs" />
+    <Compile Include="Feed\Feed.cs" />
     <Compile Include="PostCreation\FeedPost.cs" />
     <Compile Include="PostCreation\PostType.cs" />
     <Compile Include="Home.cs" />

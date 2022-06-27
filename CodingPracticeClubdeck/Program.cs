@@ -12,7 +12,9 @@ namespace CodingPracticeClubdeck
         static void Main(string[] args)
         {
             //Login?
+            var login = new Account();
             var home = new Home();
+            login.Login();
             home.Boot();
         }
     }

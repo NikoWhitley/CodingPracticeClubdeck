@@ -19,7 +19,7 @@ namespace CodingPracticeClubdeck
         }
         private void PostTitle()
         {
-            System.Console.WriteLine("\n<Create Feed Post: Title> (1/3)\nPost Title:");
+            System.Console.WriteLine("\n<Create Feed Post: Title>\nPost Title:");
 
             while (true)
             {
@@ -45,7 +45,7 @@ namespace CodingPracticeClubdeck
         }
         private void PostContent()
         {
-            System.Console.WriteLine("\n<Create Feed Post: Content> (2/3)\nPost Content:");
+            System.Console.WriteLine("\n<Create Feed Post: Content>\nPost Content:");
 
             while (true)
             {
@@ -69,13 +69,37 @@ namespace CodingPracticeClubdeck
         }
         private void PostConfirmation()
         {
-            System.Console.WriteLine(
-                "\n<Feed Post Confirmation (3/3)>\n" +
-                _now + "\n" +
-                //do what you have to to make the date time more readable. Do something specific.
-                 _postTitle + "\n" +
+            bool _confirming = true;
+
+            while (_confirming)
+            {
+                System.Console.WriteLine(
+                "\n<Feed Post Confirmation>\n" +
+                _now.ToString("MMM dd, yyyy | HH:mm tt") + "\n" +
+                _postTitle + "\n" +
                 _postContent + "\n" +
                 "[1: Confirm and Post] [2: Edit Title] [3: Edit Content] [4: Cancel]");
+
+            
+                var _input = System.Console.ReadLine();
+
+                switch (_input)
+                {
+                    case "1":
+                        Console.WriteLine("Posted!");
+                        _confirming = false;
+                        break;
+                    case "2":
+                        PostTitle();
+                        break;
+                    case "3":
+                        PostContent();
+                        break;
+                    default:
+                        Console.WriteLine("----Invalid Input----");
+                        break;
+                }
+            }
         }
 
         private void Research(string _postTitleData, string _postContentData)
@@ -87,6 +111,8 @@ namespace CodingPracticeClubdeck
                 //perhaps split each post title into one iteration
                 //of the list, then make recommendations like: see
                 //posts related to: "This is what I put as my post title!!" ?
+                //but this wouldn't be usable in console since I can't recommend anything...
+                //Is just seeing your post in the feed enough?
             {
                 
             }
