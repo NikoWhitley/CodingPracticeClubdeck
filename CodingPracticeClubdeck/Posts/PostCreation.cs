@@ -4,27 +4,32 @@ using System.Globalization;
 
 namespace CodingPracticeClubdeck
 {
-    public class FeedPost
+
+    public class PostCreation
     {
-        private string _postTitle;
-        private string _postContent;
-        private DateTime _dateTime = new DateTime();
-        private DateTime _now = DateTime.Now;
+        PostRepository postRepository = new PostRepository();
+        Home home = new Home();
+
+        private string PostTitle;
+        private string PostContent;
+        private string PostTime = DateTime.Now.ToString("MMM dd, yyyy | hh:mm tt");
+        private string AuthorTitle = "*Working on this*";
+
         
         public void CreateFeedPost()
         {
-            PostTitle();
-            PostContent();
+            PostTitleCreation();
+            PostContentCreation();
             PostConfirmation();
         }
-        private void PostTitle()
+        private void PostTitleCreation()
         {
             System.Console.WriteLine("\n<Create Feed Post: Title>\nPost Title:");
 
             while (true)
             {
                 string _title = System.Console.ReadLine().Trim();
-                int _charLimit = 50;
+                int _charLimit = 25;
               
 
                 if (string.IsNullOrEmpty(_title))
@@ -38,62 +43,64 @@ namespace CodingPracticeClubdeck
                 else
                 {
                     TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
-                    _postTitle = textInfo.ToTitleCase(_title);
+                    PostTitle = textInfo.ToTitleCase(_title);
                     break;
                 }
             }
         }
-        private void PostContent()
+        private void PostContentCreation()
         {
             System.Console.WriteLine("\n<Create Feed Post: Content>\nPost Content:");
 
             while (true)
             {
-                string _content = System.Console.ReadLine();
-                int _charLimit = 100;
+                string Content = System.Console.ReadLine();
+                int CharLimit = 100;
 
-                if (string.IsNullOrEmpty(_content))
+                if (string.IsNullOrEmpty(Content))
                 {
                     System.Console.WriteLine("----Content is Required----");
                 }
-                else if (_content.Length > _charLimit)
+                else if (Content.Length > CharLimit)
                 {
                     System.Console.WriteLine("----Title Exceeds Character Limit----");
                 }
                 else
                 {
-                    _postContent = _content.Trim();
+                    PostContent = Content.Trim();
                     break;
                 }
             }
         }
         private void PostConfirmation()
         {
-            bool _confirming = true;
+            bool confirming = true;
 
-            while (_confirming)
+            while (confirming)
             {
                 System.Console.WriteLine(
                 "\n<Feed Post Confirmation>\n" +
-                _now.ToString("MMM dd, yyyy | HH:mm tt") + "\n" +
-                _postTitle + "\n" +
-                _postContent + "\n" +
+                PostTime + "\n" +
+                PostTitle + "\n" +
+                PostContent + "\n" +
                 "[1: Confirm and Post] [2: Edit Title] [3: Edit Content] [4: Cancel]");
 
-            
-                var _input = System.Console.ReadLine();
+                var input = System.Console.ReadLine();
 
-                switch (_input)
+                switch (input)
                 {
                     case "1":
-                        Console.WriteLine("Posted!");
-                        _confirming = false;
+                        postRepository.AddPost(PostTitle, PostContent, PostTime, AuthorTitle);
+
+                        Console.WriteLine("\n'{0}' was posted!\n", PostTitle);
+                        confirming = false;
+                        home.Boot();
                         break;
                     case "2":
-                        PostTitle();
+                        PostTitleCreation();
                         break;
                     case "3":
-                        PostContent();
+                        PostContentCreation();
                         break;
                     default:
                         Console.WriteLine("----Invalid Input----");
@@ -101,25 +108,5 @@ namespace CodingPracticeClubdeck
                 }
             }
         }
-
-        private void Research(string _postTitleData, string _postContentData)
-        {
-            var postTitleData = new List<string>();
-            var postContentData = new List<string>();
-
-            foreach (var word in _postTitleData.Split(' ')) 
-                //perhaps split each post title into one iteration
-                //of the list, then make recommendations like: see
-                //posts related to: "This is what I put as my post title!!" ?
-                //but this wouldn't be usable in console since I can't recommend anything...
-                //Is just seeing your post in the feed enough?
-            {
-                
-            }
-
-            //create class that returns a profile score to be used in feed,
-            //recommending posts based on what they type
-        }
-        
     }
 }
