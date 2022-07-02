@@ -2,25 +2,26 @@
 {
     public class Home
     {
+        PostCreation feedPostCreation = new PostCreation();
+
         public void Boot()
         {
+            bool onPage = true;
+
             System.Console.WriteLine(
                 "<Home>\n" +
                 "(Type numbers to navigate)\n" +
-                "[1: View Feed] [2: Make a Post]");
+                "[1: View Feed] [2: Create a Post]");
 
-            Post post = new Post();
-            bool _onPage = true;
-
-            while (_onPage)
+            while (onPage)
             {
-                var _input = System.Console.ReadLine().Trim();
+                var input = System.Console.ReadLine().Trim();
 
-                switch (_input)
+                switch (input)
                 {
                     case "2":
-                        post.PostType();
-                        _onPage = false;
+                        onPage = false;
+                        feedPostCreation.CreateFeedPost();
                         break;
                     default:
                         System.Console.WriteLine("----Invalid Input----\n");
